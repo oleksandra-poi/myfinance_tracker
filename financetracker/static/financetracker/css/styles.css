@@ -1,0 +1,258 @@
+:root {
+    --bg-light: #f4f7f9;
+    --card-white: rgba(255, 255, 255, 0.75);
+    --text-main: #2d3436;
+    --text-muted: #636e72;
+    --accent-blue: #0984e3;
+    --accent-green: #00b894;
+    --accent-red: #d63031;
+    --accent-yellow: #fdcb6e;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text-main);
+
+    background: linear-gradient(
+        -45deg,
+        #fff0f5, /* Lavender Blush (ніжно-рожевий) */
+        #f3e5f5, /* Полегшений фіолетовий */
+        #e3f2fd, /* Світло-блакитний */
+        #fce4ec  /* Пудровий рожевий */
+    );
+    background-size: 400% 400%;
+    animation: gradientBG 18s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.app-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding-top: 80px;
+    padding-bottom: 40px;
+    display: block;
+}
+
+.card {
+    background: var(--card-white);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.auth-card {
+    max-width: 650px !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.balance-title {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+}
+
+.balance-value {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.currency { color: var(--accent-yellow); }
+
+
+.nav-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.nav-button {
+    background: var(--card-white);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 30px 20px;
+    border-radius: 24px;
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 600;
+    box-shadow: var(--shadow);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+
+.nav-grid a:last-child:nth-child(4) {
+    grid-column: 2;
+}
+
+.nav-button:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.9) !important;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+.icon-wrap {
+    width: 54px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    border-radius: 16px;
+}
+
+.icon-expense { background: #ffeaa7; color: #d35400; }
+.icon-income { background: #55efc4; color: #00b894; }
+.icon-stats { background: #81ecec; color: #00cec9; }
+
+
+.form-group { text-align: left; margin-bottom: 20px; }
+
+input, select, textarea {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid rgba(237, 242, 247, 0.5);
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 14px;
+    font-size: 1rem;
+    margin-top: 8px;
+    box-sizing: border-box;
+    transition: all 0.2s;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    background: white;
+}
+
+.btn-primary {
+    background: var(--accent-blue);
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 14px;
+    width: 100%;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(9, 132, 227, 0.3);
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(9, 132, 227, 0.4);
+}
+
+
+.back-link {
+    font-size: 1.2rem !important;
+    padding: 16px 45px !important;
+    border-radius: 20px !important;
+    background: rgba(255, 255, 255, 0.4);
+    border: 2px solid var(--accent-blue) !important;
+    color: var(--accent-blue) !important;
+    font-weight: 700;
+    margin-top: 40px;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    background: var(--accent-blue);
+    color: white !important;
+    box-shadow: 0 8px 20px rgba(9, 132, 227, 0.3);
+}
+
+@media (max-width: 600px) {
+    .nav-grid { grid-template-columns: 1fr; }
+    .nav-grid a:last-child:nth-child(4) { grid-column: span 1; }
+    .balance-value { font-size: 2.5rem; }
+}
+
+.transaction-filters {
+    display: flex;
+    width: 100%;
+    max-width: 800px; /* Ось тут ми регулюємо ширину на екрані */
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    padding: 8px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: var(--shadow);
+}
+
+.filter-item {
+    flex: 1; /* Кожна кнопка займає однакову частину простору */
+    text-align: center;
+    padding: 12px 0;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 600;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.filter-item.active {
+    background: var(--accent-blue);
+    color: white;
+    box-shadow: 0 4px 15px rgba(9, 132, 227, 0.2);
+}
+
+.filter-item:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--accent-blue);
+}
+
+@media (max-width: 600px) {
+    .nav-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-grid a:last-child:nth-child(4) {
+        grid-column: span 1;
+    }
+
+    .balance-value {
+        font-size: 2.5rem;
+    }
+
+    .transaction-filters {
+        flex-wrap: wrap;
+        border-radius: 15px;
+    }
+
+    .filter-item {
+        flex: 1 0 45%;
+        font-size: 0.85rem;
+        padding: 10px 0;
+    }
+}

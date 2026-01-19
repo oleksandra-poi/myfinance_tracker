@@ -1,0 +1,32 @@
+{% extends 'financetracker/base.html' %}
+{% block content %}
+<div class="card">
+    <div class="balance-title">Total Monthly Balance</div>
+    <div class="balance-value">
+        <span class="currency">₴</span> <span>{{ balance }}</span>
+    </div>
+</div>
+
+<div class="nav-grid">
+    <a href="{% url 'add_expense' %}" class="nav-button">
+        <div class="icon-wrap icon-expense">💸</div>
+        Add Expense
+    </a>
+    <a href="{% url 'add_income' %}" class="nav-button">
+        <div class="icon-wrap icon-income">💰</div>
+        Add Income
+    </a>
+    <a href="{% url 'statistics' %}" class="nav-button">
+        <div class="icon-wrap icon-stats">📊</div>
+        Statistics
+    </a>
+</div>
+
+<div style="margin-top: 30px; text-align: center;">
+    <a href="{% url 'transactions_list' %}" class="nav-button">
+        <div class="icon-wrap" style="background: #e1efff; color: #0984e3;">📂</div>
+        Transactions
+    </a>
+</div>
+
+{% endblock %}

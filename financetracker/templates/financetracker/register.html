@@ -1,0 +1,31 @@
+{% extends 'financetracker/base.html' %}
+
+{% block content %}
+<div class="app-container">
+    <div class="card auth-card" style="max-width: 500px;">
+        <h2 class="auth-title">Register</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    <label>{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <span class="helptext">{{ field.help_text }}</span>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <p class="errorlist">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn-primary">Create Account</button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Already have an account?</p>
+            <a href="{% url 'login' %}" class="auth-link">Back to Login</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

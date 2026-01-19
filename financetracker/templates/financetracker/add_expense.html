@@ -1,0 +1,16 @@
+{% extends 'financetracker/base.html' %}
+{% block content %}
+<div class="card">
+    <h2 style="margin-top: 0;">Add New Expense</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="btn-primary" style="background: var(--accent-red);">Save Expense</button>
+    </form>
+    <a href="{% url 'home' %}" class="back-link">
+    <i class="fas fa-arrow-left"></i> Back to Dashboard
+    </a>
+</div>
+{% endblock %}

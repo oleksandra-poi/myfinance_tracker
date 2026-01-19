@@ -1,0 +1,71 @@
+{% extends 'financetracker/base.html' %}
+
+{% block content %}
+<div class="container-fluid py-4 px-4">
+
+    <div class="d-flex justify-content-center mb-5">
+        <div class="transaction-filters">
+            <a href="?filter=all" class="filter-item {% if current_filter == 'all' or not current_filter %}active{% endif %}">All</a>
+            <a href="?filter=day" class="filter-item {% if current_filter == 'day' %}active{% endif %}">Day</a>
+            <a href="?filter=week" class="filter-item {% if current_filter == 'week' %}active{% endif %}">Week</a>
+            <a href="?filter=month" class="filter-item {% if current_filter == 'month' %}active{% endif %}">Month</a>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 rounded-4 h-100" style="border-left: 6px solid #dc3545 !important;">
+                <div class="card-body p-4">
+                    <h2 class="text-danger text-center mb-4" style="font-weight: 700;">Expenses</h2>
+                    {% for exp in expenses %}
+                    <div class="d-flex justify-content-between align-items-center border-bottom py-3">
+                        <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                            <div class="fw-bold">{{ exp.category.name|default:"Other" }}</div>
+                            <div class="small text-muted">{{ exp.date|date:"d M Y" }}</div>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            <span class="fw-bold text-danger">-{{ exp.amount }} ₴</span>
+                            <a href="{% url 'edit_expense' exp.pk %}" class="text-warning text-decoration-none" title="Edit">✎</a>
+                            <a href="{% url 'delete_expense' exp.pk %}" class="text-muted text-decoration-none" title="Delete" onclick="return confirm('Delete this expense?')">🗑</a>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-center text-muted">No expenses for this period.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 rounded-4 h-100" style="border-left: 6px solid #198754 !important;">
+                <div class="card-body p-4">
+                    <h2 class="text-success text-center mb-4" style="font-weight: 700;">Income</h2>
+                    {% for inc in income %}
+                    <div class="d-flex justify-content-between align-items-center border-bottom py-3">
+                        <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                            <div class="fw-bold">{{ inc.description|truncatechars:20|default:"Income" }}</div>
+                            <div class="small text-muted">{{ inc.date|date:"d M Y" }}</div>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            <span class="fw-bold text-success">+{{ inc.amount }} ₴</span>
+                            <a href="{% url 'edit_income' inc.pk %}" class="text-warning text-decoration-none" title="Edit">✎</a>
+                            <a href="{% url 'delete_income' inc.pk %}" class="text-muted text-decoration-none" title="Delete" onclick="return confirm('Delete this income?')">🗑</a>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-center text-muted">No income for this period.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+    <div class="col-12 d-flex justify-content-center">
+        <a href="{% url 'home' %}" class="back-link">
+             Back to Dashboard
+        </a>
+    </div>
+</div>
+</div>
+{% endblock %}
