@@ -1,6 +1,8 @@
 from django.db import models
+from django.db.models import Sum
 from datetime import date
 from django.contrib.auth.models import User
+
 
 class Category(models.Model):
     """Model for category"""
@@ -12,6 +14,7 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Expense(models.Model):
     """Model for expense"""
@@ -33,8 +36,19 @@ class Expense(models.Model):
         verbose_name = 'Expense'
         verbose_name_plural = 'Expenses'
 
+    @classmethod
+    def get_total(cls, user):
+        """Method to get total expense"""
+        return cls.objects.filter(user=user).aggregate(Sum('amount'))['amount__sum'] or 0
+
+    @classmethod
+    def get_by_month(cls, user, month, year):
+        """Method to get expense by month and year"""
+        return cls.objects.filter(user=user, date__month=month, date__year=year)
+
     def __str__(self):
         return f"{self.amount} - {self.category}"
+
 
 class Income(models.Model):
     """Model for income"""
@@ -49,6 +63,16 @@ class Income(models.Model):
         ordering = ['-date']
         verbose_name = 'Income'
         verbose_name_plural = 'Income'
+
+    @classmethod
+    def get_total(cls, user):
+        """Method to get total income"""
+        return cls.objects.filter(user=user).aggregate(Sum('amount'))['amount__sum'] or 0
+
+    @classmethod
+    def get_by_month(cls, user, month, year):
+        """Method to get income by month and year"""
+        return cls.objects.filter(user=user, date__month=month, date__year=year)
 
     def __str__(self):
         return f"{self.amount} - {self.category}"

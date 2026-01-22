@@ -14,8 +14,9 @@ from django.contrib.auth.decorators import login_required
 def home(request):
     """Home page with balance overview"""
     # Calculate total income and expenses
-    total_income = Income.objects.filter(user=request.user).aggregate(Sum('amount'))['amount__sum'] or 0
-    total_expenses = Expense.objects.filter(user=request.user).aggregate(Sum('amount'))['amount__sum'] or 0
+    total_income = Income.get_total(request.user)
+    total_expenses = Expense.get_total(request.user)
+
     balance = total_income - total_expenses
 
     context = {
@@ -156,8 +157,8 @@ def statistics_view(request):
         selected_year = current_year
 
     # Base queryset filtered by user
-    user_expenses = Expense.objects.filter(user=request.user, date__month=selected_month, date__year=selected_year)
-    user_incomes = Income.objects.filter(user=request.user, date__month=selected_month, date__year=selected_year)
+    user_expenses = Expense.get_by_month(request.user, selected_month, selected_year)
+    user_incomes = Income.get_by_month(request.user, selected_month, selected_year)
 
     # Calculate expenses by category
     expenses_by_category = user_expenses.values('category__name').annotate(total=Sum('amount')).order_by('-total')
